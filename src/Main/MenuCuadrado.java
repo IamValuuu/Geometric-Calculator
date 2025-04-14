@@ -11,16 +11,16 @@ public class MenuCuadrado extends JPanel {
 
     public int tamanioBtnX = 200;
     public int tamanioBtnY = 40;
-    
+
     public MenuCuadrado(final Panel panelPadre) {
-        setLayout(null); // También posicionamiento absoluto acá
-        
+        setLayout(null);
+
         JLabel lblLado = new JLabel("Lado:");
         lblLado.setBounds(50, 50, 100, 30);
         add(lblLado);
-        
-        // Cuadro de input para el ingreso del dato
-        JTextField txtLado = new JTextField();
+
+        // Input para ingresar el lado
+        final JTextField txtLado = new JTextField();
         txtLado.setBounds(120, 50, 100, 30);
         add(txtLado);
 
@@ -28,10 +28,39 @@ public class MenuCuadrado extends JPanel {
         lblUnidad.setBounds(230, 50, 30, 30);
         add(lblUnidad);
 
+        // Botón para calcular
+        JButton btnCalcular = new JButton("Calcular");
+        btnCalcular.setBounds(120, 100, 100, 30);
+        add(btnCalcular);
 
+        // Etiquetas para mostrar los resultados
+        final JLabel lblResultado = new JLabel("<html>Perímetro: <p style='margin-bottom:-60px;'></p>Área: </html>");
+        lblResultado.setBounds(300, 50, 200, 60);
+        add(lblResultado);
 
+        // Acción del botón calcular
+        btnCalcular.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    float lado = Float.parseFloat(txtLado.getText());
+
+                    float perimetro = 4 * lado;
+                    float area = lado * lado;
+
+                    lblResultado.setText("<html>" +
+                            "Perímetro: " + perimetro + " cm<p style='margin-bottom:-60px;'></p>" +
+                            "Área: " + area + " cm²" +
+                            "</html>");
+                } catch (NumberFormatException ex) {
+                    lblResultado.setText("Ingresá un número válido");
+                }
+            }
+        });
+
+        // Botón para volver al menú principal
         JButton btnPrincipal = new JButton("Ir al menú principal");
-        btnPrincipal.setBounds(panelPadre.width - tamanioBtnX - 10, panelPadre.height - tamanioBtnY - 10, tamanioBtnX, tamanioBtnY); // x, y, ancho, alto
+        btnPrincipal.setBounds(panelPadre.width - tamanioBtnX - 10, panelPadre.height - tamanioBtnY - 10, tamanioBtnX, tamanioBtnY);
 
         btnPrincipal.addActionListener(new ActionListener() {
             @Override
