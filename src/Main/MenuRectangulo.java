@@ -2,47 +2,62 @@ package Main;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
+import javax.swing.*;
 
 public class MenuRectangulo extends JPanel {
 
     public int tamanioBtnX = 200;
     public int tamanioBtnY = 40;
-    
-    public MenuRectangulo(final Panel panelPadre) {
-        setLayout(null); // También posicionamiento absoluto acá
-        
-        JLabel lblLadoA = new JLabel("Lado A:");
-        lblLadoA.setBounds(50, 50, 100, 30);
-        add(lblLadoA);
-        
-        // Cuadro de input para el ingreso del dato
-        JTextField txtLadoA = new JTextField();
-        txtLadoA.setBounds(120, 50, 100, 30);
-        add(txtLadoA);
 
-        JLabel lblUnidadA = new JLabel("cm");
-        lblUnidadA.setBounds(230, 50, 30, 30);
-        add(lblUnidadA);
-        
-        JLabel lblLadoB = new JLabel("Lado B:");
-        lblLadoB.setBounds(50, 100, 100, 30);
-        add(lblLadoB);
-        
-        // Cuadro de input para el ingreso del dato
-        JTextField txtLadoB = new JTextField();
-        txtLadoB.setBounds(120, 100, 100, 30);
-        add(txtLadoB);
-        
-        JLabel lblUnidadB = new JLabel("cm");
-        lblUnidadB.setBounds(230, 100, 30, 30);
-        add(lblUnidadB);
+    public MenuRectangulo(final Panel panelPadre) {
+        setLayout(null);
+
+        JLabel lblBase = new JLabel("Base:");
+        lblBase.setBounds(50, 50, 100, 30);
+        add(lblBase);
+
+        final JTextField txtBase = new JTextField();
+        txtBase.setBounds(120, 50, 100, 30);
+        add(txtBase);
+
+        JLabel lblAltura = new JLabel("Altura:");
+        lblAltura.setBounds(50, 100, 100, 30);
+        add(lblAltura);
+
+        final JTextField txtAltura = new JTextField();
+        txtAltura.setBounds(120, 100, 100, 30);
+        add(txtAltura);
+
+        JButton btnCalcular = new JButton("Calcular");
+        btnCalcular.setBounds(120, 150, 100, 30);
+        add(btnCalcular);
+
+        final JLabel lblResultado = new JLabel("<html>Perímetro:<br>Área:</html>");
+        lblResultado.setBounds(300, 50, 300, 60);
+        add(lblResultado);
+
+        btnCalcular.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    float base = Float.parseFloat(txtBase.getText());
+                    float altura = Float.parseFloat(txtAltura.getText());
+
+                    float perimetro = 2 * (base + altura);
+                    float area = base * altura;
+
+                    lblResultado.setText("<html>" +
+                            "Perímetro: " + perimetro + " cm<br>" +
+                            "Área: " + area + " cm²" +
+                            "</html>");
+                } catch (NumberFormatException ex) {
+                    lblResultado.setText("Ingresá valores válidos");
+                }
+            }
+        });
 
         JButton btnPrincipal = new JButton("Ir al menú principal");
-        btnPrincipal.setBounds(panelPadre.width - tamanioBtnX - 10, panelPadre.height - tamanioBtnY - 10, tamanioBtnX, tamanioBtnY); // x, y, ancho, alto
+        btnPrincipal.setBounds(panelPadre.width - tamanioBtnX - 10, panelPadre.height - tamanioBtnY - 10, tamanioBtnX, tamanioBtnY);
 
         btnPrincipal.addActionListener(new ActionListener() {
             @Override

@@ -2,60 +2,71 @@ package Main;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
+import javax.swing.*;
 
 public class MenuParalelepipedo extends JPanel {
 
     public int tamanioBtnX = 200;
     public int tamanioBtnY = 40;
-    
+
     public MenuParalelepipedo(final Panel panelPadre) {
-        setLayout(null); // También posicionamiento absoluto acá
-        
+        setLayout(null);
+
         JLabel lblLargo = new JLabel("Largo:");
         lblLargo.setBounds(50, 50, 100, 30);
         add(lblLargo);
-        
-        // Cuadro de input para el ingreso del dato
-        JTextField txtLargo = new JTextField();
+
+        final JTextField txtLargo = new JTextField();
         txtLargo.setBounds(120, 50, 100, 30);
         add(txtLargo);
 
-        JLabel lblUnidadLargo = new JLabel("cm");
-        lblUnidadLargo.setBounds(230, 50, 30, 30);
-        add(lblUnidadLargo);
-        
         JLabel lblAncho = new JLabel("Ancho:");
         lblAncho.setBounds(50, 100, 100, 30);
         add(lblAncho);
-        
-        // Cuadro de input para el ingreso del dato
-        JTextField txtAncho = new JTextField();
+
+        final JTextField txtAncho = new JTextField();
         txtAncho.setBounds(120, 100, 100, 30);
         add(txtAncho);
-        
-        JLabel lblUnidadAncho = new JLabel("cm");
-        lblUnidadAncho.setBounds(230, 100, 30, 30);
-        add(lblUnidadAncho);
-        
+
         JLabel lblAlto = new JLabel("Alto:");
         lblAlto.setBounds(50, 150, 100, 30);
         add(lblAlto);
-        
-        // Cuadro de input para el ingreso del dato
-        JTextField txtAlto = new JTextField();
+
+        final JTextField txtAlto = new JTextField();
         txtAlto.setBounds(120, 150, 100, 30);
         add(txtAlto);
 
-        JLabel lblUnidadAlto = new JLabel("cm");
-        lblUnidadAlto.setBounds(230, 150, 30, 30);
-        add(lblUnidadAlto);
+        JButton btnCalcular = new JButton("Calcular");
+        btnCalcular.setBounds(120, 200, 100, 30);
+        add(btnCalcular);
+
+        final JLabel lblResultado = new JLabel("<html>Área superficial:<br>Volumen:</html>");
+        lblResultado.setBounds(300, 50, 300, 60);
+        add(lblResultado);
+
+        btnCalcular.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    float largo = Float.parseFloat(txtLargo.getText());
+                    float ancho = Float.parseFloat(txtAncho.getText());
+                    float alto = Float.parseFloat(txtAlto.getText());
+
+                    float areaSuperficial = 2 * (largo * ancho + largo * alto + ancho * alto);
+                    float volumen = largo * ancho * alto;
+
+                    lblResultado.setText("<html>" +
+                            "Área superficial: " + String.format("%.2f", areaSuperficial) + " cm²<br>" +
+                            "Volumen: " + String.format("%.2f", volumen) + " cm³" +
+                            "</html>");
+                } catch (NumberFormatException ex) {
+                    lblResultado.setText("Ingresá todos los valores correctamente");
+                }
+            }
+        });
 
         JButton btnPrincipal = new JButton("Ir al menú principal");
-        btnPrincipal.setBounds(panelPadre.width - tamanioBtnX - 10, panelPadre.height - tamanioBtnY - 10, tamanioBtnX, tamanioBtnY); // x, y, ancho, alto
+        btnPrincipal.setBounds(panelPadre.width - tamanioBtnX - 10, panelPadre.height - tamanioBtnY - 10, tamanioBtnX, tamanioBtnY);
 
         btnPrincipal.addActionListener(new ActionListener() {
             @Override
