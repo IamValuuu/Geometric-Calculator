@@ -15,7 +15,7 @@ public class MenuTriangulo extends JPanel {
     public MenuTriangulo(final Panel panelPadre) {
         setLayout(null); // También posicionamiento absoluto acá
         
-        JLabel lblLadoA = new JLabel("Lado A:");
+        JLabel lblLadoA = new JLabel("Base A:");
         lblLadoA.setBounds(50, 50, 100, 30);
         add(lblLadoA);
         
